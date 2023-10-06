@@ -12,7 +12,7 @@ import javax.management.Query;
 import java.util.*;
 
 @RestController
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/question")
 public class QuestionController {
     @Autowired
