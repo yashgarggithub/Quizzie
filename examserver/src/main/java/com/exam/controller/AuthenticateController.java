@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:8080")
 public class AuthenticateController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -30,8 +30,7 @@ public class AuthenticateController {
     @Autowired
     private JwtUtils jwtUtils;
 
-
-    //generate token
+    // generate token
 
     @PostMapping("/generate-token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
@@ -43,7 +42,7 @@ public class AuthenticateController {
             throw new Exception("User not found ");
         }
 
-        //authenticate
+        // authenticate
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtils.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
@@ -51,7 +50,7 @@ public class AuthenticateController {
 
     private void authenticate(String username, String password) throws Exception {
 
-        try {   //creating token after authentication
+        try { // creating token after authentication
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER DISABLED " + e.getMessage());
@@ -60,7 +59,7 @@ public class AuthenticateController {
         }
     }
 
-    //return the details of current user
+    // return the details of current user
     @GetMapping("/current-user")
     public User getCurrentUser(Principal principal) {
         return ((User) this.userDetailsService.loadUserByUsername(principal.getName()));

@@ -18,7 +18,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin("*") // allowing all the hosts
+@CrossOrigin("http://localhost:8080")
 public class UserController {
 
     @Autowired

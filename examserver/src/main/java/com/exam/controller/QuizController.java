@@ -13,38 +13,38 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:8080")
 @RequestMapping("/quiz")
 public class QuizController {
     @Autowired
     private QuizService quizService;
 
-    //add quiz service
+    // add quiz service
     @PostMapping("/")
     public ResponseEntity<Quiz> add(@RequestBody Quiz quiz) {
         return ResponseEntity.ok(this.quizService.addQuiz(quiz));
     }
 
-    //update quiz
+    // update quiz
 
     @PutMapping("/")
     public ResponseEntity<Quiz> update(@RequestBody Quiz quiz) {
         return ResponseEntity.ok(this.quizService.updateQuiz(quiz));
     }
 
-    //get quiz
+    // get quiz
     @GetMapping("/")
     public ResponseEntity<?> quizzes() {
         return ResponseEntity.ok(this.quizService.getQuizzes());
     }
 
-    //get single quiz
+    // get single quiz
     @GetMapping("/{qid}")
     public Quiz quiz(@PathVariable("qid") Long qid) {
         return this.quizService.getQuiz(qid);
     }
 
-    //delete the quiz
+    // delete the quiz
     @DeleteMapping("/{qid}")
     public void delete(@PathVariable("qid") Long qid) {
         this.quizService.deleteQuiz(qid);
@@ -57,21 +57,18 @@ public class QuizController {
         return this.quizService.getQuizzesOfCategory(category);
     }
 
-    //get active quizzes
+    // get active quizzes
     @GetMapping("/active")
     public List<Quiz> getActiveQuizzes() {
         return this.quizService.getActiveQuizzes();
     }
 
-    //get active quizzes of category
+    // get active quizzes of category
     @GetMapping("/category/active/{cid}")
     public List<Quiz> getActiveQuizzes(@PathVariable("cid") Long cid) {
         Category category = new Category();
         category.setCid(cid);
         return this.quizService.getActiveQuizzesOfCategory(category);
     }
-
-
-
 
 }
